@@ -13,8 +13,8 @@ public class HistorialMedicoService {
         @Autowired
         private HistorialMedicoImpl historialMedico;
 
-        public ResumenPacienteDto obtenerResumenPaciente(Long pacienteId) {
-                return historialMedico.obtenerResumenPaciente(pacienteId);
+        public ResumenPacienteDto obtenerResumenBasicoPaciente(Long pacienteId) {
+                return historialMedico.obtenerResumenBasicoPaciente(pacienteId);
         }
 
         public ResumenHistorialDto obtenerResumenPorPacienteId(Long pacienteId) {

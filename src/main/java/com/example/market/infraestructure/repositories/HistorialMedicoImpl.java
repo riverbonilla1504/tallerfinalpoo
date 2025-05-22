@@ -99,8 +99,11 @@ public class HistorialMedicoImpl {
         // Calcular estadísticas
         int totalCitas = citas.size();
         int totalConsultas = consultas.size();
+        // Inicia un stream para procesar la lista de pagos
         BigDecimal totalPagos = pagos.stream()
+                // Transforma cada PagoDto en su monto (BigDecimal)
                 .map(PagoDto::getMonto)
+                // Suma todos los montos, comenzando desde cero
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
 
         // Obtener diagnósticos frecuentes
@@ -108,27 +111,36 @@ public class HistorialMedicoImpl {
         if (diagnosticosFrecuentes == null)
             diagnosticosFrecuentes = List.of();
 
-        // Obtener medicamentos frecuentes (extraídos de las prescripciones)
+        // Inicia un stream para procesar la lista de consultas
         List<String> medicamentosFrecuentes = consultas.stream()
+                // Extrae la prescripción de cada consulta
                 .map(ConsultaDto::getPrescripcion)
+                // Elimina prescripciones duplicadas
                 .distinct()
+                // Toma solo los primeros 5 elementos
                 .limit(5)
+                // Convierte el stream resultante en una lista
                 .collect(Collectors.toList());
 
-        // Obtener última consulta y próxima cita
+        // Inicia un stream para procesar la lista de consultas
         String ultimaConsulta = consultas.stream()
+                // Encuentra la consulta con la fecha más reciente
                 .max(Comparator.comparing(ConsultaDto::getFecha))
+                // Convierte la fecha a String
                 .map(c -> c.getFecha().toString())
+                // Si no hay consultas, retorna mensaje por defecto
                 .orElse("No hay consultas registradas");
 
+        // Inicia un stream para procesar la lista de citas
         String proximaCita = citas.stream()
+                // Filtra solo las citas con fecha posterior a la actual
                 .filter(c -> c.getFechaHora().isAfter(LocalDateTime.now()))
+                // Encuentra la cita con la fecha más próxima
                 .min(Comparator.comparing(CitaDto::getFechaHora))
+                // Convierte la fecha a String
                 .map(c -> c.getFechaHora().toString())
+                // Si no hay citas futuras, retorna mensaje por defecto
                 .orElse("No hay citas programadas");
-
-        // Calcular promedio de calificaciones (si existe en el sistema)
-        double promedioCalificaciones = 0.0; // Implementar cuando se agregue el sistema de calificaciones
 
         // Construir y retornar el resumen
         return ResumenHistorialDto.builder()
@@ -139,7 +151,6 @@ public class HistorialMedicoImpl {
                 .totalCitas(totalCitas)
                 .totalConsultas(totalConsultas)
                 .totalPagos(totalPagos)
-                .promedioCalificaciones(promedioCalificaciones)
                 .diagnosticosFrecuentes(diagnosticosFrecuentes)
                 .medicamentosFrecuentes(medicamentosFrecuentes)
                 .ultimaConsulta(ultimaConsulta)

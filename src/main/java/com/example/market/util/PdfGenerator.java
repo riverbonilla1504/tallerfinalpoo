@@ -76,8 +76,6 @@ public class PdfGenerator {
             addTableRow(summaryTable, "Total Citas:", String.valueOf(resumen.getTotalCitas()), normalFont);
             addTableRow(summaryTable, "Total Consultas:", String.valueOf(resumen.getTotalConsultas()), normalFont);
             addTableRow(summaryTable, "Total Pagos:", "$" + resumen.getTotalPagos(), highlightFont);
-            addTableRow(summaryTable, "Promedio Calificaciones:",
-                    String.format("%.1f", resumen.getPromedioCalificaciones()), normalFont);
             addTableRow(summaryTable, "Última Consulta:", resumen.getUltimaConsulta(), normalFont);
             addTableRow(summaryTable, "Próxima Cita:", resumen.getProximaCita(), highlightFont);
             document.add(summaryTable);

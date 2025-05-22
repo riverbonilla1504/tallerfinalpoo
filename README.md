@@ -1,5 +1,10 @@
 # Servicio BFF - Historial Médico
-
+## Integrantes
+- Dylan Rodriguez
+- Diego Ocampo
+- Tomas Benavides
+- River Bonilla
+  
 ## Descripción
 Este proyecto es un Backend-For-Frontend (BFF) que actúa como una capa intermedia entre el frontend y múltiples microservicios. Su principal función es agregar y transformar datos de diferentes servicios para proporcionar una API unificada y optimizada para el cliente.
 
@@ -21,8 +26,9 @@ Este proyecto es un Backend-For-Frontend (BFF) que actúa como una capa intermed
 
 ## Configuración del Entorno
 1. Clonar el repositorio
-2. Configurar las URLs de los microservicios en `application.properties`:
+2. Configurar las URLs de los microservicios en `application.properties` si se va a usar otros servicios, por defecto estan configuradas:
 ```properties
+#ejemplos
 services.pacientes.url=https://microserviciospacientes-production.up.railway.app
 services.citas.url=https://microserviciocitas-production.up.railway.app
 services.consultas.url=https://microservicioconsultas-production.up.railway.app
@@ -45,7 +51,7 @@ mvn clean install
 mvn spring-boot:run
 ```
 
-El servicio estará disponible en `http://localhost:8080`
+El servicio estará disponible en `http://localhost:8000`
 
 ## Estructura del Proyecto
 ```
@@ -68,8 +74,8 @@ tallerfinalpoo/
 
 ### Historial Médico
 - `GET /historial/paciente/{id}`: Obtiene un resumen básico del paciente
-- `GET /historial/paciente/{id}/completo`: Obtiene el historial médico completo
-- `GET /historial/paciente/{id}/pdf`: Genera un PDF con el historial médico
+- `GET /historial/resumen/{id}`: Obtiene el historial médico completo
+- `GET /historial/resumen/{id}/pdf`: Genera un PDF con el historial médico
 
 ## Características del Servicio
 
@@ -85,32 +91,9 @@ tallerfinalpoo/
 
 ### 3. Generación de Reportes
 - Crea PDFs profesionales del historial médico
-- Incluye estadísticas y resúmenes
+- Incluye estadísticas basicas y resúmenes
 - Formato estructurado y fácil de leer
 
 ### 4. Manejo de Errores
 - Gestión centralizada de errores
 - Respuestas consistentes
-- Logging detallado
-
-## Ejemplos de Uso
-
-### Obtener Resumen del Paciente
-```bash
-curl http://localhost:8080/historial/paciente/1
-```
-
-### Generar PDF del Historial
-```bash
-curl http://localhost:8080/historial/paciente/1/pdf -o historial.pdf
-```
-
-## Contribución
-1. Fork el repositorio
-2. Crear una rama para tu feature (`git checkout -b feature/AmazingFeature`)
-3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
-4. Push a la rama (`git push origin feature/AmazingFeature`)
-5. Abrir un Pull Request
-
-## Licencia
-Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) para más detalles. 

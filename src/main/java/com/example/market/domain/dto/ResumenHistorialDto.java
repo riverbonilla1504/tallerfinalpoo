@@ -18,7 +18,6 @@ public class ResumenHistorialDto {
     private int totalCitas;
     private int totalConsultas;
     private BigDecimal totalPagos;
-    private double promedioCalificaciones;
 
     // Resumen médico
     private List<String> diagnosticosFrecuentes;
